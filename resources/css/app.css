@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply font-sans text-csj-gray-800 bg-white antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading font-semibold text-csj-gray-900;
+    }
+}
+
+@layer components {
+    /* Boutons */
+    .btn-primary {
+        @apply inline-flex items-center justify-center px-6 py-3 bg-csj-blue-600 text-white font-medium rounded-lg hover:bg-csj-blue-700 transition-all duration-200 shadow-csj hover:shadow-csj-lg focus:outline-none focus:ring-2 focus:ring-csj-blue-500 focus:ring-offset-2;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center px-6 py-3 bg-white text-csj-blue-600 font-medium rounded-lg border-2 border-csj-blue-600 hover:bg-csj-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-csj-blue-500 focus:ring-offset-2;
+    }
+
+    .btn-danger {
+        @apply inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+    }
+
+    /* Cards */
+    .card {
+        @apply bg-white rounded-2xl shadow-csj border border-csj-gray-100 overflow-hidden;
+    }
+
+    .card-hover {
+        @apply card hover:shadow-csj-lg hover:-translate-y-1 transition-all duration-300;
+    }
+
+    /* Badges */
+    .badge {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    }
+
+    .badge-blue {
+        @apply badge bg-csj-blue-100 text-csj-blue-700;
+    }
+
+    .badge-gray {
+        @apply badge bg-csj-gray-100 text-csj-gray-700;
+    }
+
+    .badge-green {
+        @apply badge bg-green-100 text-green-700;
+    }
+
+    .badge-red {
+        @apply badge bg-red-100 text-red-700;
+    }
+
+    /* Inputs */
+    .input-field {
+        @apply w-full px-4 py-3 border border-csj-gray-300 rounded-lg text-csj-gray-800 placeholder-csj-gray-400 focus:outline-none focus:ring-2 focus:ring-csj-blue-500 focus:border-transparent transition-all duration-200;
+    }
+
+    /* Section titles */
+    .section-title {
+        @apply text-3xl font-heading font-bold text-csj-gray-900 mb-2;
+    }
+
+    .section-subtitle {
+        @apply text-csj-gray-500 text-lg mb-10;
+    }
+
+    /* Container */
+    .container-csj {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+}
