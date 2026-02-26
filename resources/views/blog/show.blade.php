@@ -57,7 +57,7 @@
 
                 {{-- Contenu --}}
                 <div class="prose prose-lg prose-blue max-w-none mb-10">
-                    {!! nl2br(e($article->content)) !!}
+                    {!! $article->content !!}
                 </div>
 
                 {{-- Likes --}}

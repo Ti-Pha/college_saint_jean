@@ -321,7 +321,6 @@
     </div>
 </section>
 
-
 {{-- TÉMOIGNAGES --}}
 <section class="py-20 bg-white">
     <div class="container-csj">
@@ -331,13 +330,13 @@
                 <p class="text-csj-gray-500">Témoignages de notre communauté</p>
             </div>
 
+            @if($testimonials->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                {{-- Témoignage 1 --}}
+                @foreach($testimonials as $testimonial)
                 <div class="card p-6 flex flex-col">
                     {{-- Étoiles --}}
                     <div class="flex gap-1 mb-4">
-                        @for($i = 0; $i < 5; $i++)
+                        @for($i = 0; $i < $testimonial->rating; $i++)
                         <svg class="w-4 h-4" style="color: #2DB9B5;" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                         </svg>
@@ -345,73 +344,32 @@
                     </div>
                     {{-- Témoignage --}}
                     <p class="text-sm leading-relaxed flex-1 mb-6" style="color: #4B5563;">
-                        "Le Collège Saint Jean m'a donné les bases solides pour réussir mes études universitaires. Les professeurs sont dévoués et l'environnement est propice à l'apprentissage."
+                        "{{ $testimonial->content }}"
                     </p>
                     {{-- Auteur --}}
                     <div class="flex items-center gap-3 pt-4 border-t border-csj-gray-100">
-                        <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-csj-blue-200 to-csj-blue-400 flex items-center justify-center">
-                            <span class="text-white font-bold">JM</span>
+                        <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                            @if($testimonial->photo)
+                                <img src="{{ Storage::url($testimonial->photo) }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center font-bold text-white text-sm" style="background-color: #2DB9B5;">
+                                    {{ substr($testimonial->name, 0, 1) }}
+                                </div>
+                            @endif
                         </div>
                         <div>
-                            <p class="font-heading font-semibold text-sm" style="color: #1F2937;">Jean Michel</p>
+                            <p class="font-heading font-semibold text-sm" style="color: #1F2937;">{{ $testimonial->name }}</p>
                             <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background-color: #8FD4D2; color: #1F2937;">
-                                Ancien élève
+                                {{ $testimonial->role }}
                             </span>
                         </div>
                     </div>
                 </div>
-
-                {{-- Témoignage 2 --}}
-                <div class="card p-6 flex flex-col">
-                    <div class="flex gap-1 mb-4">
-                        @for($i = 0; $i < 5; $i++)
-                        <svg class="w-4 h-4" style="color: #2DB9B5;" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                        </svg>
-                        @endfor
-                    </div>
-                    <p class="text-sm leading-relaxed flex-1 mb-6" style="color: #4B5563;">
-                        "Mon enfant s'épanouit pleinement au CSJ. L'équipe pédagogique est attentive et les valeurs enseignées vont bien au-delà des matières académiques."
-                    </p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-csj-gray-100">
-                        <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-csj-blue-200 to-csj-blue-400 flex items-center justify-center">
-                            <span class="text-white font-bold">ML</span>
-                        </div>
-                        <div>
-                            <p class="font-heading font-semibold text-sm" style="color: #1F2937;">Marie Louise</p>
-                            <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background-color: #8FD4D2; color: #1F2937;">
-                                Parent d'élève
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Témoignage 3 --}}
-                <div class="card p-6 flex flex-col">
-                    <div class="flex gap-1 mb-4">
-                        @for($i = 0; $i < 5; $i++)
-                        <svg class="w-4 h-4" style="color: #2DB9B5;" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                        </svg>
-                        @endfor
-                    </div>
-                    <p class="text-sm leading-relaxed flex-1 mb-6" style="color: #4B5563;">
-                        "Une école qui forme non seulement des élèves brillants mais aussi des citoyens responsables. Je recommande le CSJ à toutes les familles des Cayes."
-                    </p>
-                    <div class="flex items-center gap-3 pt-4 border-t border-csj-gray-100">
-                        <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-csj-blue-200 to-csj-blue-400 flex items-center justify-center">
-                            <span class="text-white font-bold">PJ</span>
-                        </div>
-                        <div>
-                            <p class="font-heading font-semibold text-sm" style="color: #1F2937;">Pierre Jean</p>
-                            <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background-color: #8FD4D2; color: #1F2937;">
-                                Partenaire
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
+            @else
+                <p class="text-center text-csj-gray-400">Aucun témoignage pour le moment.</p>
+            @endif
         </div>
     </div>
 </section>

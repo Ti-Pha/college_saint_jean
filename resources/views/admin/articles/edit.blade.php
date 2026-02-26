@@ -34,8 +34,8 @@
                 <label class="block text-sm font-medium text-csj-gray-700 mb-2">
                     Contenu <span class="text-red-500">*</span>
                 </label>
-                <textarea name="content" rows="16"
-                          class="input-field resize-none @error('content') border-red-400 @enderror">{{ old('content', $article->content) }}</textarea>
+                <textarea name="content" id="content"
+          class="@error('content') border-red-400 @enderror">{{ old('content', $article->content) }}</textarea>
                 @error('content')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -112,7 +112,33 @@
 </form>
 
 @push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
+ClassicEditor
+    .create(document.querySelector('#content'), {
+        language: 'fr',
+        toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'fontSize', 'fontColor', '|',
+            'alignment', '|',
+            'bulletedList', 'numberedList', '|',
+            'link', 'blockQuote', '|',
+            'insertTable', '|',
+            'specialCharacters', '|',
+            'undo', 'redo'
+        ],
+        heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraphe', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Titre 1', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Titre 2', class: 'ck-heading_heading2' },
+                { model: 'heading3', view: 'h3', title: 'Titre 3', class: 'ck-heading_heading3' },
+            ]
+        },
+    })
+    .catch(error => console.error(error));
+
 function imagePreview(existing = null) {
     return {
         preview: null,

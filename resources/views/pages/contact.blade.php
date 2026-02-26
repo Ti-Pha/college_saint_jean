@@ -33,7 +33,7 @@
                         </svg>
                     </div>
                     <h3 class="font-heading font-semibold text-csj-gray-900 mb-2">Adresse</h3>
-                    <p class="text-csj-gray-500 text-sm">Les Cayes, Haïti</p>
+                    <p class="text-csj-gray-500 text-sm">1, rue des Oblats, Gabions des Indigènes, Les Cayes, Haïti​</p>
                 </div>
 
                 <div class="card p-6">

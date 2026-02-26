@@ -1,47 +1,101 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | CSJ Admin</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="min-h-screen flex items-center justify-center" style="background-color: #F3F4F6;">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <div class="w-full max-w-md px-6 py-8">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        {{-- Logo --}}
+        <div class="text-center mb-8">
+            <img src="{{ asset('images/logo.png') }}" alt="CSJ" class="h-20 w-auto mx-auto mb-4">
+            <h1 class="text-2xl font-heading font-bold" style="color: #1F2937;">Espace Administration</h1>
+            <p class="text-sm mt-1" style="color: #4B5563;">Collège Saint Jean des Cayes</p>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        {{-- Card --}}
+        <div class="bg-white rounded-2xl shadow-sm p-8" style="border: 1px solid #D1D5DB;">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+            {{-- Status --}}
+            @if(session('status'))
+                <div class="mb-4 p-3 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm">
+                    {{ session('status') }}
+                </div>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                {{-- Email --}}
+                <div class="mb-5">
+                    <label for="email" class="block text-sm font-medium mb-2" style="color: #1F2937;">
+                        Adresse email
+                    </label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}"
+                           required autofocus autocomplete="username"
+                           class="w-full px-4 py-3 rounded-xl text-sm transition-all duration-200"
+                           style="border: 1px solid #D1D5DB; color: #1F2937; outline: none;"
+                           onfocus="this.style.borderColor='#2DB9B5'; this.style.boxShadow='0 0 0 3px rgba(45,185,181,0.15)'"
+                           onblur="this.style.borderColor='#D1D5DB'; this.style.boxShadow='none'"
+                           placeholder="admin@csj.ht">
+                    @error('email')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Mot de passe --}}
+                <div class="mb-5">
+                    <label for="password" class="block text-sm font-medium mb-2" style="color: #1F2937;">
+                        Mot de passe
+                    </label>
+                    <input id="password" type="password" name="password"
+                           required autocomplete="current-password"
+                           class="w-full px-4 py-3 rounded-xl text-sm transition-all duration-200"
+                           style="border: 1px solid #D1D5DB; color: #1F2937; outline: none;"
+                           onfocus="this.style.borderColor='#2DB9B5'; this.style.boxShadow='0 0 0 3px rgba(45,185,181,0.15)'"
+                           onblur="this.style.borderColor='#D1D5DB'; this.style.boxShadow='none'"
+                           placeholder="••••••••">
+                    @error('password')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Se souvenir de moi --}}
+                <div class="flex items-center justify-between mb-6">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" name="remember" id="remember_me"
+                               class="w-4 h-4 rounded" style="accent-color: #2DB9B5;">
+                        <span class="text-sm" style="color: #4B5563;">Se souvenir de moi</span>
+                    </label>
+
+                    @if(Route::has('password.request'))
+                        <a href="{{ route('password.request') }}"
+                           class="text-sm font-medium hover:underline transition-colors"
+                           style="color: #2DB9B5;">
+                            Mot de passe oublié ?
+                        </a>
+                    @endif
+                </div>
+
+                {{-- Bouton connexion --}}
+                <button type="submit"
+                        class="w-full py-3 rounded-xl font-medium text-white text-sm transition-all duration-200"
+                        style="background-color: #2DB9B5;"
+                        onmouseover="this.style.backgroundColor='#239E9B'"
+                        onmouseout="this.style.backgroundColor='#2DB9B5'">
+                    Se connecter
+                </button>
+            </form>
         </div>
-    </form>
-</x-guest-layout>
+
+        <p class="text-center text-xs mt-6" style="color: #4B5563;">
+            © {{ date('Y') }} Collège Saint Jean des Cayes
+        </p>
+    </div>
+
+</body>
+</html>

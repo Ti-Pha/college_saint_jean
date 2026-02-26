@@ -18,6 +18,6 @@ class OptimizeApp extends Command
         $this->call('view:cache');
         $this->call('event:cache');
 
-        $this->info('✅ Application optimisée avec succès.');
+        $this->info('Application optimisée avec succès.');
     }
 }

@@ -1,0 +1,91 @@
+@extends('layouts.admin')
+
+@section('title', 'Mon profil')
+@section('page_title', 'Mon profil')
+
+@section('content')
+
+<div class="max-w-2xl space-y-6">
+
+    {{-- Informations personnelles --}}
+    <div class="card p-8">
+        <h3 class="font-heading font-semibold text-csj-gray-900 mb-6">Informations personnelles</h3>
+
+        <form action="{{ route('admin.profile.update') }}" method="POST">
+            @csrf @method('PATCH')
+
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Nom complet <span class="text-red-500">*</span></label>
+                    <input type="text" name="name" value="{{ old('name', $user->name) }}"
+                           class="input-field @error('name') border-red-400 @enderror">
+                    @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Adresse email <span class="text-red-500">*</span></label>
+                    <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                           class="input-field @error('email') border-red-400 @enderror">
+                    @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Téléphone</label>
+                    <input type="text" name="phone" value="{{ old('phone', $user->phone) }}"
+                           class="input-field" placeholder="+509 XXXX XXXX">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Rôle</label>
+                    <input type="text" value="{{ $user->getRoleNames()->first() }}"
+                           class="input-field bg-csj-gray-50" disabled>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <button type="submit" class="btn-primary">Mettre à jour</button>
+            </div>
+        </form>
+    </div>
+
+    {{-- Changer le mot de passe --}}
+    <div class="card p-8">
+        <h3 class="font-heading font-semibold text-csj-gray-900 mb-6">Changer le mot de passe</h3>
+
+        <form action="{{ route('admin.profile.password') }}" method="POST">
+            @csrf @method('PATCH')
+
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Mot de passe actuel <span class="text-red-500">*</span></label>
+                    <input type="password" name="current_password"
+                           class="input-field @error('current_password') border-red-400 @enderror"
+                           placeholder="••••••••">
+                    @error('current_password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Nouveau mot de passe <span class="text-red-500">*</span></label>
+                    <input type="password" name="password"
+                           class="input-field @error('password') border-red-400 @enderror"
+                           placeholder="••••••••">
+                    @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    <p class="text-csj-gray-400 text-xs mt-1">Min. 8 caractères, majuscule, minuscule et chiffre.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Confirmer le mot de passe <span class="text-red-500">*</span></label>
+                    <input type="password" name="password_confirmation"
+                           class="input-field" placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <button type="submit" class="btn-primary">Changer le mot de passe</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@endsection

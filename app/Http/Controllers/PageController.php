@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\TeamMember;
 use App\Models\GalleryCategory;
+use App\Models\Testimonial;
 
 class PageController extends Controller
 {
-    public function home()
+public function home()
 {
     $latestArticles = Article::with(['category', 'author'])
         ->published()
@@ -24,7 +25,16 @@ class PageController extends Controller
         ->take(4)
         ->get();
 
-    return view('pages.home', compact('latestArticles', 'galleryCategories'));
+    $testimonials = Testimonial::active()
+        ->orderBy('order')
+        ->take(3)
+        ->get();
+
+    //  $testimonials = Testimonial::active()
+    // ->orderBy('order')
+    // ->get();
+
+    return view('pages.home', compact('latestArticles', 'galleryCategories', 'testimonials'));
 }
 
     public function about()

@@ -112,6 +112,14 @@ Route::prefix('admin')
         Route::get('conduct', [App\Http\Controllers\Admin\ConductController::class, 'index'])->name('conduct.index');
         Route::post('conduct', [App\Http\Controllers\Admin\ConductController::class, 'upload'])->name('conduct.upload');
         Route::delete('conduct', [App\Http\Controllers\Admin\ConductController::class, 'destroy'])->name('conduct.destroy');
+
+        // Témoignages
+        Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
+
+        // Profil
+        Route::get('profile', [\App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
+        Route::patch('profile/password', [\App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password');
     });
 
 /*
