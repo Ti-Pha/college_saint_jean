@@ -13,7 +13,7 @@
     <meta property="og:title" content="@yield('title', 'Collège Saint Jean des Cayes')">
     <meta property="og:description" content="@yield('meta_description', 'Excellence académique et formation intégrale')">
     <meta property="og:type" content="website">
-
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
