@@ -7,12 +7,12 @@
 
 {{-- HERO --}}
 <section class="bg-gradient-to-br from-csj-blue-900 to-csj-blue-700 text-white py-20">
-    <div class="container-csj">
+    <div class="container-csj text-center">
         <span class="badge bg-white/20 text-white mb-4 inline-flex">Règlement</span>
         <h1 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-4">
             Code de conduite
         </h1>
-        <p class="text-csj-blue-100 text-xl max-w-2xl">
+        <p class="text-csj-blue-100 text-xl max-w-2xl mx-auto">
             Les règles et valeurs qui régissent la vie au sein de notre établissement.
         </p>
     </div>

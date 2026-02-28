@@ -7,12 +7,12 @@
 
 {{-- HERO --}}
 <section class="bg-gradient-to-br from-csj-blue-900 to-csj-blue-700 text-white py-20">
-    <div class="container-csj">
+    <div class="container-csj text-center">
         <span class="badge bg-white/20 text-white mb-4 inline-flex">Blog</span>
         <h1 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-4">
             Actualités & Articles
         </h1>
-        <p class="text-csj-blue-100 text-xl max-w-2xl">
+        <p class="text-csj-blue-100 text-xl max-w-2xl mx-auto">
             Restez informés de toute la vie du Collège Saint Jean des Cayes.
         </p>
     </div>

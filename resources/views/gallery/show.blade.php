@@ -6,7 +6,7 @@
 
 {{-- HERO --}}
 <section class="bg-gradient-to-br from-csj-blue-900 to-csj-blue-700 text-white py-20">
-    <div class="container-csj">
+    <div class="container-csj text-center">
         <a href="{{ route('gallery.index') }}" class="text-csj-blue-200 hover:text-white text-sm flex items-center gap-2 mb-4">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>

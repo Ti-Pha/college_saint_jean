@@ -42,22 +42,63 @@
             {{-- BOUTONS AUTH --}}
             <div class="hidden lg:flex items-center gap-3">
                 @auth
-                    @if(auth()->user()->hasAnyRole(['admin', 'directeur', 'secretaire']))
-                        <a href="{{ route('admin.dashboard') }}" class="btn-primary text-sm py-2">
-                            Tableau de bord
-                        </a>
+    @if(auth()->user()->hasAnyRole(['admin', 'directeur', 'secretaire']))
+        <div class="relative" x-data="{ open: false }">
+            <button @click="open = !open" class="flex items-center gap-2 focus:outline-none">
+                <div class="w-9 h-9 rounded-full overflow-hidden flex-shrink-0">
+                    @if(auth()->user()->avatar)
+                        <img src="{{ Storage::url(auth()->user()->avatar) }}" class="w-full h-full object-cover">
+                    @else
+                        <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background-color: #0DCAF0;">
+                            {{ substr(auth()->user()->name, 0, 1) }}
+                        </div>
                     @endif
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn-secondary text-sm py-2">
-                            Déconnexion
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="btn-primary text-sm py-2">
-                        Connexion
-                    </a>
-                @endauth
+                </div>
+                <span class="text-sm font-medium text-csj-gray-700 hidden md:block">{{ auth()->user()->name }}</span>
+                <svg class="w-4 h-4 text-csj-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+
+            <div x-show="open" @click.outside="open = false"
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-csj-gray-100 z-50 overflow-hidden"
+                 style="top: 100%;">
+                <a href="{{ route('admin.dashboard') }}"
+                   class="flex items-center gap-3 px-4 py-3 text-sm text-csj-gray-700 hover:bg-csj-gray-50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Tableau de bord
+                </a>
+                <a href="{{ route('admin.profile.edit') }}"
+                   class="flex items-center gap-3 px-4 py-3 text-sm text-csj-gray-700 hover:bg-csj-gray-50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    Mon profil
+                </a>
+                <div class="border-t border-csj-gray-100"></div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                            class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        Déconnexion
+                    </button>
+                </form>
+            </div>
+        </div>
+    @endif
+@else
+    <a href="{{ route('login') }}" class="btn-primary text-sm py-2">
+        Connexion
+    </a>
+@endauth
             </div>
 
             {{-- BURGER MENU MOBILE --}}

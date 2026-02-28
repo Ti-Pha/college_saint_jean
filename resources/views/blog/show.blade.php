@@ -6,7 +6,7 @@
 @section('content')
 
 <section class="py-16 bg-white">
-    <div class="container-csj">
+    <div class="container-csj max-w-5xl">
         <div class="flex flex-col lg:flex-row gap-12">
 
             {{-- Article principal --}}

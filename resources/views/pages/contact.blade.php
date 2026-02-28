@@ -7,12 +7,12 @@
 
 {{-- HERO --}}
 <section class="bg-gradient-to-br from-csj-blue-900 to-csj-blue-700 text-white py-20">
-    <div class="container-csj">
+    <div class="container-csj text-center">
         <span class="badge bg-white/20 text-white mb-4 inline-flex">Contact</span>
         <h1 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-4">
             Contactez-nous
         </h1>
-        <p class="text-csj-blue-100 text-xl max-w-2xl">
+        <p class="text-csj-blue-100 text-xl max-w-2xl mx-auto">
             Notre équipe est disponible pour répondre à toutes vos questions.
         </p>
     </div>

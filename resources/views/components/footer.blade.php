@@ -110,7 +110,7 @@
     <div style="border-top: 1px solid #D1D5DB; background-color: #E5E7EB;">
         <div class="container-csj py-4">
             <p class="text-center text-xs" style="color: #4B5563;">
-                © {{ date('Y') }} Collège Saint Jean des Cayes. Tous droits réservés.
+               © {{ date('Y') }} Collège Saint Jean des Cayes. Tous droits réservés. | Développé par <span class="font-medium">ING. Phawens LOUIS-JEAN</span>
             </p>
         </div>
     </div>

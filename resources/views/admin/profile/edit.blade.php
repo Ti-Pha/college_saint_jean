@@ -11,10 +11,34 @@
     <div class="card p-8">
         <h3 class="font-heading font-semibold text-csj-gray-900 mb-6">Informations personnelles</h3>
 
-        <form action="{{ route('admin.profile.update') }}" method="POST">
+        <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf @method('PATCH')
 
             <div class="space-y-5">
+
+                {{-- Photo de profil --}}
+                <div>
+                    <label class="block text-sm font-medium text-csj-gray-700 mb-2">Photo de profil</label>
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                            @if($user->avatar)
+                                <img src="{{ Storage::url($user->avatar) }}" class="w-full h-full object-cover" id="avatar-preview">
+                            @else
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl" style="background-color: #0DCAF0;" id="avatar-placeholder">
+                                    {{ substr($user->name, 0, 1) }}
+                                </div>
+                            @endif
+                        </div>
+                        <div>
+                            <input type="file" name="avatar" id="avatar" accept="image/jpeg,image/png,image/webp"
+                                   class="block w-full text-sm text-csj-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:text-white"
+                                   style="accent-color: #0DCAF0;"
+                                   onchange="previewAvatar(this)">
+                            <p class="text-csj-gray-400 text-xs mt-1">JPG, PNG ou WebP. Max 2 Mo.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <label class="block text-sm font-medium text-csj-gray-700 mb-2">Nom complet <span class="text-red-500">*</span></label>
                     <input type="text" name="name" value="{{ old('name', $user->name) }}"
@@ -38,7 +62,7 @@
                 <div>
                     <label class="block text-sm font-medium text-csj-gray-700 mb-2">Rôle</label>
                     <input type="text" value="{{ $user->getRoleNames()->first() }}"
-                           class="input-field bg-csj-gray-50" disabled>
+                           class="input-field" style="background-color: #F3F4F6;" disabled>
                 </div>
             </div>
 
@@ -87,5 +111,25 @@
     </div>
 
 </div>
+
+@push('scripts')
+<script>
+function previewAvatar(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('avatar-preview');
+            const placeholder = document.getElementById('avatar-placeholder');
+            if (preview) {
+                preview.src = e.target.result;
+            } else if (placeholder) {
+                placeholder.outerHTML = `<img src="${e.target.result}" class="w-16 h-16 rounded-full object-cover" id="avatar-preview">`;
+            }
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+@endpush
 
 @endsection
