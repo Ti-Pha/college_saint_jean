@@ -5,7 +5,7 @@
             {{-- Logo & Description --}}
             <div>
                 <a href="{{ url('/') }}">
-    <img src="{{ asset('images/logo.png') }}" alt="Collège Saint Jean des Cayes" class="h-10 w-auto">
+    <img src="{{ asset('images/logo2.png') }}" alt="Collège Saint Jean des Cayes" class="h-10 w-auto">
 </a>
                 <p class="text-sm leading-relaxed mb-4" style="color: #4B5563;">
                     Un établissement d'excellence dédié à la formation intégrale des jeunes.

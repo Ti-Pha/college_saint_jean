@@ -43,7 +43,7 @@
                         </svg>
                     </div>
                     <h3 class="font-heading font-semibold text-csj-gray-900 mb-2">Email</h3>
-                    <p class="text-csj-gray-500 text-sm">contact@csj.ht</p>
+                    <p class="text-csj-gray-500 text-sm">info@csjcayes.com</p>
                 </div>
 
                 <div class="card p-6">
@@ -53,7 +53,7 @@
                         </svg>
                     </div>
                     <h3 class="font-heading font-semibold text-csj-gray-900 mb-2">Horaires</h3>
-                    <p class="text-csj-gray-500 text-sm">Lundi - Vendredi : 7h00 - 17h00</p>
+                    <p class="text-csj-gray-500 text-sm">Lundi - Vendredi : 7h00 - 14h00</p>
                 </div>
             </div>
 

@@ -19,10 +19,10 @@ class GalleryController extends Controller
     }
 
     public function show(string $slug)
-    {
-        $category = GalleryCategory::where('slug', $slug)->firstOrFail();
-        $images   = $category->images()->orderBy('order')->get();
+{
+    $category = GalleryCategory::where('slug', $slug)->firstOrFail();
+    $images   = $category->images()->orderBy('order')->paginate(12);
 
-        return view('gallery.show', compact('category', 'images'));
-    }
+    return view('gallery.show', compact('category', 'images'));
+}
 }

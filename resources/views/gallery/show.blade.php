@@ -67,10 +67,49 @@
                     </button>
 
                     <div class="absolute bottom-4 text-white text-sm">
-                        <span x-text="current + 1"></span> / {{ $images->count() }}
+                        <span x-text="current + 1"></span> / {{ $images->total() }}
                     </div>
                 </div>
             </div>
+
+            {{-- Pagination --}}
+            @if($images->hasPages())
+            <div class="flex justify-center mt-12">
+                <div class="flex items-center gap-2">
+                    @if($images->onFirstPage())
+                        <span class="px-4 py-2 rounded-xl text-sm font-medium border border-csj-gray-200 text-csj-gray-300 cursor-not-allowed">
+                            ← Précédent
+                        </span>
+                    @else
+                        <a href="{{ $images->previousPageUrl() }}"
+                           class="px-4 py-2 rounded-xl text-sm font-medium border border-csj-gray-200 text-csj-gray-600 hover:border-csj-blue-300 hover:text-csj-blue-600 transition-colors">
+                            ← Précédent
+                        </a>
+                    @endif
+
+                    @foreach($images->getUrlRange(1, $images->lastPage()) as $page => $url)
+                        <a href="{{ $url }}"
+                           class="w-9 h-9 rounded-xl text-sm font-medium flex items-center justify-center transition-colors
+                           {{ $page == $images->currentPage() ? 'text-white' : 'border border-csj-gray-200 text-csj-gray-600 hover:border-csj-blue-300 hover:text-csj-blue-600' }}"
+                           style="{{ $page == $images->currentPage() ? 'background-color: #0DCAF0;' : '' }}">
+                            {{ $page }}
+                        </a>
+                    @endforeach
+
+                    @if($images->hasMorePages())
+                        <a href="{{ $images->nextPageUrl() }}"
+                           class="px-4 py-2 rounded-xl text-sm font-medium border border-csj-gray-200 text-csj-gray-600 hover:border-csj-blue-300 hover:text-csj-blue-600 transition-colors">
+                            Suivant →
+                        </a>
+                    @else
+                        <span class="px-4 py-2 rounded-xl text-sm font-medium border border-csj-gray-200 text-csj-gray-300 cursor-not-allowed">
+                            Suivant →
+                        </span>
+                    @endif
+                </div>
+            </div>
+            @endif
+
         @else
             <div class="text-center py-20">
                 <p class="text-csj-gray-400 text-lg">Aucune photo dans cette catégorie.</p>
@@ -85,11 +124,22 @@ function lightbox() {
     return {
         isOpen: false,
         current: 0,
-        images: @json($images->pluck('filename')->map(fn($f) => Storage::url($f))),
-        open(index) { this.current = index; this.isOpen = true; },
-        close() { this.isOpen = false; },
-        prev() { this.current = this.current > 0 ? this.current - 1 : this.images.length - 1; },
-        next() { this.current = this.current < this.images.length - 1 ? this.current + 1 : 0; },
+        images: @json($images->map(fn($img) => Storage::url($img->filename))),
+        open(index) {
+            this.current = index;
+            this.isOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        close() {
+            this.isOpen = false;
+            document.body.style.overflow = '';
+        },
+        prev() {
+            this.current = (this.current - 1 + this.images.length) % this.images.length;
+        },
+        next() {
+            this.current = (this.current + 1) % this.images.length;
+        }
     }
 }
 </script>
