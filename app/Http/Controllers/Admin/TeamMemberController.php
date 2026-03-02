@@ -23,26 +23,36 @@ class TeamMemberController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $data = $request->validate([
-            'name'        => ['required', 'string', 'max:150'],
-            'role'        => ['required', 'string', 'max:150'],
-            'description' => ['nullable', 'string', 'max:500'],
-            'order'       => ['nullable', 'integer'],
-            'is_active'   => ['boolean'],
-            'photo'       => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
-        ]);
+{
+    $request->validate([
+        'name'        => ['required', 'string', 'max:255'],
+        'role'        => ['required', 'string', 'max:255'],
+        'description' => ['nullable', 'string'],
+        'order'       => ['nullable', 'integer'],
+        'photo'       => ['nullable', 'string'], // base64
+    ]);
 
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $this->imageService->upload($request->file('photo'), 'team');
-        }
+    $data = $request->only(['name', 'role', 'description', 'order']);
+    $data['is_active'] = $request->boolean('is_active', true);
 
-        $data['is_active'] = $request->boolean('is_active', true);
-        TeamMember::create($data);
-
-        return redirect()->route('admin.team.index')
-            ->with('success', 'Membre ajouté avec succès.');
+    if ($request->filled('photo') && str_starts_with($request->photo, 'data:image')) {
+        $data['photo'] = $this->saveBase64Image($request->photo, 'team');
     }
+
+    $data['order'] = $data['order'] ?? 0;
+    TeamMember::create($data);
+
+    return redirect()->route('admin.team.index')->with('success', 'Membre ajouté avec succès.');
+}
+
+private function saveBase64Image(string $base64, string $folder): string
+{
+    $image = str_replace(['data:image/jpeg;base64,', 'data:image/png;base64,', 'data:image/webp;base64,'], '', $base64);
+    $image = base64_decode($image);
+    $filename = $folder . '/' . uniqid() . '.jpg';
+    \Storage::disk('public')->put($filename, $image);
+    return $filename;
+}
 
     public function edit(TeamMember $team)
     {
