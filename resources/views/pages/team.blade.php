@@ -24,8 +24,9 @@
         @if($members->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($members as $member)
-                <div class="card p-8 text-center">
-                    <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-6 bg-csj-blue-100">
+                <div class="card p-8 text-center group hover:-translate-y-2 transition-all duration-300 cursor-default"
+     style="box-shadow: 0 0 20px rgba(13, 202, 240, 0.2); border: 1px solid rgba(13, 202, 240, 0.3);">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-6 bg-csj-blue-100 group-hover:ring-4 transition-all duration-300" style="--tw-ring-color: #0DCAF0;">
                         @if($member->photo)
                             <img src="{{ Storage::url($member->photo) }}"
                                  alt="{{ $member->name }}"
