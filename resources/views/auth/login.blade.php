@@ -12,7 +12,7 @@
 
         {{-- Logo --}}
         <div class="text-center mb-8">
-            <img src="{{ asset('images/logo.png') }}" alt="CSJ" class="h-20 w-auto mx-auto mb-4">
+            <img src="{{ asset('images/favicon.ico') }}" alt="CSJ" class="h-20 w-auto mx-auto mb-4">
             <h1 class="text-2xl font-heading font-bold" style="color: #1F2937;">Espace Administration</h1>
             <p class="text-sm mt-1" style="color: #4B5563;">Collège Saint Jean des Cayes</p>
         </div>
@@ -75,7 +75,7 @@
                     @if(Route::has('password.request'))
                         <a href="{{ route('password.request') }}"
                            class="text-sm font-medium hover:underline transition-colors"
-                           style="color: #2DB9B5;">
+                           style="color: #0888B3;">
                             Mot de passe oublié ?
                         </a>
                     @endif
@@ -84,9 +84,9 @@
                 {{-- Bouton connexion --}}
                 <button type="submit"
                         class="w-full py-3 rounded-xl font-medium text-white text-sm transition-all duration-200"
-                        style="background-color: #2DB9B5;"
-                        onmouseover="this.style.backgroundColor='#239E9B'"
-                        onmouseout="this.style.backgroundColor='#2DB9B5'">
+                        style="background-color: #0888B3;"
+                        onmouseover="this.style.backgroundColor='#0AABE0'"
+                        onmouseout="this.style.backgroundColor='#0888B3'">
                     Se connecter
                 </button>
             </form>
